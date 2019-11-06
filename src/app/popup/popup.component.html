@@ -1,0 +1,41 @@
+<div>
+  <button type="button" class="btn btn-primary btn-lg" (click)="openModal()">click to open</button>
+  <div class="backdrop" [ngStyle]="{'display':display}"></div>
+  <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{titleBig}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Model body text</p>
+          <ngb-tabset [justify]="currentJustify">
+            <ngb-tab *ngFor="let subTitle of subTitles ; let index = index" title="{{subTitle.title}}">
+              <ng-template ngbTabContent>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <button type="button" class="btn btn-primary btn-lg btn-block col-sm-10" (click)="aisCollapsed()"
+                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                    {{subTitle.title}} Toggle
+                  </button>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div id="collapseExample" [ngbCollapse]="isCollapsed">
+                  <div class="card">
+                    <div class="card-body">
+                      <ul class="nav nav-pills">
+                        <li (click)="activateClass(subModule)" *ngFor="let subModule of subModules"
+                          [ngClass]="{'active': subModule.active}">
+                          <a>{{ subModule.name }}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
